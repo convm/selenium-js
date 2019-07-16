@@ -15,10 +15,17 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
   let driver = await new Builder().forBrowser('chrome').build();
   try {
     await driver.get('http://www.baidu.com');
-    await driver.findElement(By.id('kw')).sendKeys('有学识', Key.RETURN);
-    await driver.sleep(5000);
-    // await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
-    // await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
+
+    var kw = await driver.wait(until.elementLocated(By.id('kw')));
+    kw.sendKeys('asp.net', Key.RETURN);
+    // await driver.findElement(By.id('kw')).sendKeys('有学识', Key.RETURN);
+    // await driver.sleep(5000);
+
+    await driver.wait(until.elementLocated(By.id('1')));
+    await driver.findElement(By.id('1')).findElement(By.tagName('a')).click();
+    await driver.sleep(10000);
+
+    driver.sleep(5000);
   } finally {
     await driver.quit();
   }
